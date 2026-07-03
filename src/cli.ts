@@ -139,12 +139,21 @@ async function execTool(toolName: string, params: any, apiKey: string): Promise<
         params.destination,
         params.mode,
         params.departure_time,
-        params.arrival_time
+        params.arrival_time,
+        params.avoid_tolls,
+        params.avoid_highways
       );
 
     case "distance-matrix":
     case "maps_distance_matrix":
-      return searcher.calculateDistanceMatrix(params.origins, params.destinations, params.mode, params.departure_time);
+      return searcher.calculateDistanceMatrix(
+        params.origins,
+        params.destinations,
+        params.mode,
+        params.departure_time,
+        params.avoid_tolls,
+        params.avoid_highways
+      );
 
     case "elevation":
     case "maps_elevation":
@@ -274,25 +283,25 @@ if (isRunDirectly || isMainModule) {
       },
       async (argv) => {
         if (!argv.apikey) {
-          console.error(
+          process.stderr.write(
             JSON.stringify(
               {
                 error: "GOOGLE_MAPS_API_KEY not set. Use --apikey or set GOOGLE_MAPS_API_KEY environment variable.",
               },
               null,
               2
-            )
+            ) + "\n"
           );
-          process.exit(1);
+          process.exitCode = 1;
+          return;
         }
         try {
           const params = argv.params ? JSON.parse(argv.params as string) : {};
           const result = await execTool(argv.tool as string, params, argv.apikey as string);
-          console.log(JSON.stringify(result, null, 2));
-          process.exit(0);
+          process.stdout.write(JSON.stringify(result, null, 2) + "\n");
         } catch (error: any) {
-          console.error(JSON.stringify({ error: error.message }, null, 2));
-          process.exit(1);
+          process.stderr.write(JSON.stringify({ error: error.message }, null, 2) + "\n");
+          process.exitCode = 1;
         }
       }
     )

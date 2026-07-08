@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.53
+
+- fix: include transitDetails in Routes API field mask (#81)
+- feat: implement avoid_highways and avoid_tolls on route planner (#80)
+
+
 ## 0.0.52
 
 - feat: add --host CLI option to bind server to a specific hostname (#76) (#77)

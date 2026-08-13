@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.0.54
+
+- fix: use valid Places API type for explore_area default (#83)
+
+
 ## 0.0.53
 
 - fix: include transitDetails in Routes API field mask (#81)

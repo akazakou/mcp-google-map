@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.0.55
+
+- fix: restore broken star history chart (#84)
+
+
 ## 0.0.54
 
 - fix: use valid Places API type for explore_area default (#83)

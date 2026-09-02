@@ -529,8 +529,8 @@ export class PlacesSearcher {
     const origin = stops[0];
     const destination = stops[stops.length - 1];
     const intermediates = stops.length > 2 ? stops.slice(1, -1) : undefined;
-    // Optimize if requested, > 2 stops, and not transit (transit doesn't support intermediates for optimization)
-    const shouldOptimize = params.optimize !== false && stops.length > 2 && mode !== "transit";
+    // Optimize if requested, > 3 stops (at least 2 intermediates), and not transit (transit doesn't support intermediates for optimization)
+    const shouldOptimize = params.optimize !== false && stops.length > 3 && mode !== "transit";
 
     const routeResult = await this.routesService.computeRoutes({
       origin,
